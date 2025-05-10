@@ -1,82 +1,77 @@
 # F1 Performance Analyzer
 
-A React application to compare Formula 1 drivers based on their career statistics and provides a basic AI-like analysis.
+The **F1 Performance Analyzer** is a web application built using React that provides an interactive platform for analyzing and comparing the performance of F1 drivers. The application allows users to select drivers, view their stats, and perform AI-powered analysis to compare their performances over time.
 
 ## Features
 
-* Select two F1 drivers from a dropdown list.
-* View key statistics (Wins, Podiums, Poles) side-by-side in cards.
-* Visualize statistics comparison using a bar chart.
-* Toggle between card view and graph view for stats.
-* Get a simple comparative analysis between the selected drivers.
-* Responsive design with a dark theme suitable for F1 enthusiasts.
+-   **Driver Selection**: Allows users to select and compare different F1 drivers.
+-   **Stats Comparison**: Displays the stats of the selected drivers side by side for comparison.
+-   **AI Analysis**: Uses AI-powered analysis to provide insights into driver performances.
 
-## Project Structure
+## File Structure
 
+Okay, here's the file structure you provided, presented in code markdown:
+
+```
+ # Project documentation
 f1-performance-analyzer/
 ├── node_modules/
 ├── public/
-│   └── index.html
+│   └── index.html
 ├── src/
-│   ├── assets/
-│   │   └── data/
-│   │       └── drivers.json  # Driver stats data
-│   ├── components/           # React components
-│   │   ├── AIAnalysis.css
-│   │   ├── AIAnalysis.js
-│   │   ├── DriverSelection.css
-│   │   ├── DriverSelection.js
-│   │   ├── Header.css
-│   │   ├── Header.js
-│   │   ├── StatsComparison.css
-│   │   └── StatsComparison.js
-│   ├── styles/               # Global styles
-│   │   └── global.css
-│   ├── App.js                # Main application component
-│   └── index.js              # Entry point
+│   ├── assets/
+│   │   └── data/
+│   │       └── drivers.json
+│   ├── components/
+│   │   ├── AIAnalysis.css
+│   │   ├── AIAnalysis.js
+│   │   ├── DriverSelection.css
+│   │   ├── DriverSelection.js
+│   │   ├── StatsComparison.css
+│   │   └── StatsComparison.js
+│   ├── styles/
+│   ├── App.js
+│   └── index.js
 ├── .gitignore
 ├── package-lock.json
 ├── package.json
 └── README.md
+```
+   
+## Installation
 
+1.  Clone the repository:
 
-## Setup and Running
-
-1.  **Clone the repository:**
     ```bash
-    git clone <repository-url>
+    git clone [https://github.com/your-username/f1-performance-analyzer.git](https://github.com/your-username/f1-performance-analyzer.git)
+    ```
+
+2.  Navigate into the project directory:
+
+    ```bash
     cd f1-performance-analyzer
     ```
 
-2.  **Install dependencies:**
+3.  Install the dependencies:
+
     ```bash
     npm install
     ```
-    *Note: This project uses `react-chartjs-2` and `chart.js`. Ensure they are installed.*
-    ```bash
-    npm install react-chartjs-2 chart.js
-    ```
 
-3.  **Start the development server:**
+4.  Start the development server:
+
     ```bash
     npm start
     ```
-    This will open the application in your default browser, usually at `http://localhost:3000`.
 
-## Key Technologies
+5.  Open your browser and go to http://localhost:3000 to view the app.
 
-* React
-* Chart.js (via `react-chartjs-2`)
-* CSS Modules / Standard CSS
-* JavaScript (ES6+)
+## Dependencies
 
-## Enhancements & Future Work
+-   React: JavaScript library for building user interfaces
+-   React DOM: Provides DOM-specific methods for React
+-   React Scripts: Configuration and scripts for creating React apps
 
-* Fetch driver data from a dedicated API instead of a static JSON file.
-* Implement more sophisticated AI analysis (e.g., using NLP or a simple ML model).
-* Add more detailed driver statistics (fastest laps, championships, race entries, etc.).
-* Include team information and history.
-* Add filtering or searching capabilities for drivers.
-* Improve chart interactions and add more chart types (e.g., line charts for performance over seasons).
-* Enhance accessibility.
-* Add unit and integration tests.
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
