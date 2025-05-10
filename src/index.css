@@ -1,0 +1,141 @@
+/* Global Dark Theme */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  background-color: #121212; /* Dark background */
+  color: #e0e0e0; /* Light grey text */
+  line-height: 1.6;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
+  flex-grow: 1;
+}
+
+.error-container {
+  text-align: center;
+  padding: 50px 20px;
+  color: #ff4d4d;
+}
+
+.loading-driver-details {
+  text-align: center;
+  padding: 30px 20px;
+  color: #ccc;
+}
+
+.welcome-message {
+  text-align: center;
+  padding: 50px 20px;
+  color: #aaa;
+}
+
+
+/* General heading styles */
+h1, h2, h3 {
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+p {
+  color: #e0e0e0;
+  margin-bottom: 0.8rem;
+}
+
+a {
+  color: #bb86fc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #ffffff;
+}
+
+/* General Button Styles */
+button {
+  cursor: pointer;
+  background-color: #d32f2f; /* F1 Red */
+  color: #ffffff;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+  background-color: #b71c1c; /* Darker F1 Red */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+button:disabled {
+  background-color: #555;
+  color: #999;
+  cursor: not-allowed;
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.stats-view-controls {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.stats-view-controls button {
+  margin: 0 8px;
+  padding: 8px 16px;
+  font-size: 0.95rem;
+}
+
+.stats-view-controls button.active-stats-type {
+  background-color: #a02525; /* Darker, active F1 red */
+  color: #ffffff;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+  transform: translateY(1px);
+}
+
+.stats-view-controls button:not(.active-stats-type):hover {
+   background-color: #e04444; /* Lighter red on hover for non-active */
+}
+
+
+/* Utility class for consistent padding/margin */
+.section-padding {
+  padding: 30px 0;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loader-small {
+  border: 3px solid #555;
+  border-top: 3px solid #d32f2f;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 0.8s linear infinite;
+}

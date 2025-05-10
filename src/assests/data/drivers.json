@@ -1,0 +1,162 @@
+[
+  {
+    "id": "hamilton",
+    "name": "Lewis Hamilton",
+    "wins": 103,
+    "podiums": 192,
+    "poles": 104,
+    "image": "/images/hamilton.jpg"
+  },
+  {
+    "id": "verstappen",
+    "name": "Max Verstappen",
+    "wins": 58,
+    "podiums": 97,
+    "poles": 39,
+    "image": "/images/verstappen.jpg"
+  },
+  {
+    "id": "alonso",
+    "name": "Fernando Alonso",
+    "wins": 32,
+    "podiums": 106,
+    "poles": 22,
+    "image": "/images/alonso.jpg"
+  },
+  {
+    "id": "leclerc",
+    "name": "Charles Leclerc",
+    "wins": 5,
+    "podiums": 30,
+    "poles": 23,
+    "image": "/images/leclerc.jpg"
+  },
+  {
+    "id": "norris",
+    "name": "Lando Norris",
+    "wins": 3,
+    "podiums": 19,
+    "poles": 4,
+    "image": "/images/norris.jpg"
+  },
+  {
+    "id": "perez",
+    "name": "Sergio Perez",
+    "wins": 6,
+    "podiums": 37,
+    "poles": 3,
+    "image": "/images/perez.jpg"
+  },
+  {
+    "id": "sainz",
+    "name": "Carlos Sainz",
+    "wins": 3,
+    "podiums": 21,
+    "poles": 5,
+    "image": "/images/sainz.jpg"
+  },
+  {
+    "id": "russell",
+    "name": "George Russell",
+    "wins": 2,
+    "podiums": 14,
+    "poles": 3,
+    "image": "/images/russell.jpg"
+  },
+  {
+    "id": "piastri",
+    "name": "Oscar Piastri",
+    "wins": 1,
+    "podiums": 8,
+    "poles": 2,
+    "image": "/images/piastri.jpg"
+  },
+  {
+    "id": "stroll",
+    "name": "Lance Stroll",
+    "wins": 0,
+    "podiums": 3,
+    "poles": 1,
+    "image": "/images/stroll.jpg"
+  },
+  {
+    "id": "gasly",
+    "name": "Pierre Gasly",
+    "wins": 1,
+    "podiums": 4,
+    "poles": 0,
+    "image": "/images/gasly.jpg"
+  },
+  {
+    "id": "ocon",
+    "name": "Esteban Ocon",
+    "wins": 1,
+    "podiums": 3,
+    "poles": 0,
+    "image": "/images/ocon.jpg"
+  },
+  {
+    "id": "albon",
+    "name": "Alexander Albon",
+    "wins": 0,
+    "podiums": 2,
+    "poles": 0,
+    "image": "/images/albon.jpg"
+  },
+  {
+    "id": "tsunoda",
+    "name": "Yuki Tsunoda",
+    "wins": 0,
+    "podiums": 0,
+    "poles": 0,
+    "image": "/images/tsunoda.jpg"
+  },
+  {
+    "id": "hulkenberg",
+    "name": "Nico Hulkenberg",
+    "wins": 0,
+    "podiums": 0,
+    "poles": 1,
+    "image": "/images/hulkenberg.jpg"
+  },
+  {
+    "id": "magnussen",
+    "name": "Kevin Magnussen",
+    "wins": 0,
+    "podiums": 1,
+    "poles": 0,
+    "image": "/images/magnussen.jpg"
+  },
+  {
+    "id": "zhou",
+    "name": "Zhou Guanyu",
+    "wins": 0,
+    "podiums": 0,
+    "poles": 0,
+    "image": "/images/zhou.jpg"
+  },
+  {
+    "id": "bottas",
+    "name": "Valtteri Bottas",
+    "wins": 10,
+    "podiums": 67,
+    "poles": 20,
+    "image": "/images/bottas.jpg"
+  },
+  {
+    "id": "ricciardo",
+    "name": "Daniel Ricciardo",
+    "wins": 8,
+    "podiums": 32,
+    "poles": 3,
+    "image": "/images/ricciardo.jpg"
+  },
+  {
+    "id": "sargeant",
+    "name": "Logan Sargeant",
+    "wins": 0,
+    "podiums": 0,
+    "poles": 0,
+    "image": "/images/sargeant.jpg"
+  }
+]

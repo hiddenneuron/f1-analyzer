@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/f1.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#121212" />
+    <meta
+      name="description"
+      content="F1 Driver Performance Analyzer - Compare stats and AI analysis"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>F1 Performance Analyzer</title>
+    <style>
+      body {
+        background-color: #121212;
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+      .initial-loader-wrapper {
+        display: flex;
+        flex-direction: column; /* Stack text and loader */
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+        background-color: #121212;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+      }
+      .initial-loader-wrapper.hidden {
+          opacity: 0;
+          visibility: hidden;
+          pointer-events: none;
+      }
+      .initial-loader {
+        border: 6px solid #333;
+        border-top: 6px solid #d32f2f;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 1s linear infinite;
+        margin-top: 20px; /* Space between text and loader */
+      }
+      .loading-text {
+        color: #e0e0e0;
+        font-size: 1.2rem;
+        font-family: 'Roboto', sans-serif;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="initial-loader" class="initial-loader-wrapper">
+        <div class="loading-text">Loading F1 Data...</div>
+        <div class="initial-loader"></div>
+    </div>
+    <div id="root"></div>
+  </body>
+</html>

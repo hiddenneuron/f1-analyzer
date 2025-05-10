@@ -1,0 +1,31 @@
+/* f1-performance-analyzer/src/components/AIAnalysis.css */
+.ai-analysis {
+  text-align: left;
+  padding: 30px 20px;
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  margin-bottom: 40px;
+  color: #e0e0e0;
+}
+
+.ai-analysis h2 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+}
+
+.ai-analysis p {
+  line-height: 1.6;
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.ai-analysis p:last-child {
+  margin-bottom: 0;
+}
+
+.ai-analysis .placeholder {
+  color: #aaa;
+  font-style: italic;
+}
