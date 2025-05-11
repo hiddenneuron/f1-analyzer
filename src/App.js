@@ -1,3 +1,4 @@
+// src/App.js
 import React, { useState, useEffect, useCallback } from 'react';
 import Header from './components/Header';
 import DriverSelection from './components/DriverSelection';
@@ -8,7 +9,7 @@ import './index.css';
 const DEFAULT_IMAGE_URL = './images/default-driver.png';
 
 function App() {
-  const [latestApiYear, setLatestApiYear] = useState(new Date().getFullYear()); // Initialize with current year, will be updated
+  const [latestApiYear, setLatestApiYear] = useState(new Date().getFullYear());
   const [availableDrivers, setAvailableDrivers] = useState([]);
   const [currentSeasonStandings, setCurrentSeasonStandings] = useState([]);
   const [currentSeasonRacesHeld, setCurrentSeasonRacesHeld] = useState(0);
@@ -27,16 +28,15 @@ function App() {
     const fetchInitialData = async () => {
       console.log("Attempting to fetch initial F1 data...");
       setIsLoadingApp(true);
-      let determinedLatestYear = new Date().getFullYear(); // Fallback year
+      let determinedLatestYear = new Date().getFullYear();
 
       try {
-        // 1. Determine the latest available season from Ergast API
+        // ... (rest of fetchInitialData - no changes here) ...
         try {
-          const seasonsResponse = await fetch('https://ergast.com/api/f1/seasons.json?limit=200&offset=0&sort=desc'); // sort=desc not official, rely on array order
+          const seasonsResponse = await fetch('https://ergast.com/api/f1/seasons.json?limit=200&offset=0&sort=desc');
           if (seasonsResponse.ok) {
             const seasonsData = await seasonsResponse.json();
             if (seasonsData.MRData && seasonsData.MRData.SeasonTable && seasonsData.MRData.SeasonTable.Seasons && seasonsData.MRData.SeasonTable.Seasons.length > 0) {
-              // Ergast seasons are typically sorted ascending, so take the last one for latest
               determinedLatestYear = seasonsData.MRData.SeasonTable.Seasons[seasonsData.MRData.SeasonTable.Seasons.length - 1].season;
               setLatestApiYear(determinedLatestYear);
               console.log(`Latest available F1 season determined from API: ${determinedLatestYear}`);
@@ -50,7 +50,6 @@ function App() {
           console.warn('Error fetching seasons:', seasonError, 'Using current system year as fallback.');
         }
 
-        // 2. Fetch drivers list for the determined latest year or fallback
         let primaryFetchSuccessful = false;
         const driversListResponse = await fetch(`https://ergast.com/api/f1/${determinedLatestYear}/drivers.json?limit=200`);
         if (driversListResponse.ok) {
@@ -98,7 +97,6 @@ function App() {
           }
         }
 
-        // 3. Fetch current season standings (using 'current' keyword)
         const standingsResponse = await fetch(`https://ergast.com/api/f1/current/driverStandings.json?limit=100`);
         if (!standingsResponse.ok) throw new Error(`Failed to fetch standings: ${standingsResponse.status}`);
         const standingsData = await standingsResponse.json();
@@ -131,8 +129,9 @@ function App() {
   }, []);
 
   const fetchDriverDetails = useCallback(async (driverId, baseDriverInfo) => {
+    // ... (fetchDriverDetails remains the same) ...
     if (!driverId || !baseDriverInfo) return null;
-    console.log(`Fetching details for <span class="math-inline">\{baseDriverInfo\.name\} \(</span>{driverId})`);
+    console.log(`Fetching details for ${baseDriverInfo.name} (${driverId})`);
     try {
       let imageUrl = DEFAULT_IMAGE_URL;
       if (baseDriverInfo.url) {
@@ -212,30 +211,31 @@ function App() {
         overallStats
       };
     } catch (error) {
-      console.error(`Error fetching details for driver <span class="math-inline">\{baseDriverInfo\.name\} \(</span>{driverId}):`, error);
+      console.error(`Error fetching details for driver ${baseDriverInfo.name} (${driverId}):`, error);
       return { ...baseDriverInfo, image: DEFAULT_IMAGE_URL, error: 'Failed to load details', currentStats: { wins: 0, podiums: 0, poles: 0, points: 0, team: 'N/A', races: 0 }, overallStats: { wins: 0, podiums: 0, poles: 0, points: 0, races: 0 } };
     }
   }, [currentSeasonStandings, currentSeasonRacesHeld]);
 
   const handleSetDriver1 = useCallback(async (selectedDriverBaseInfo) => {
-    if (!selectedDriverBaseInfo) {
+    if (!selectedDriverBaseInfo) { // If unselecting
       setDriver1(null);
       return;
     }
     setIsLoadingDriver1(true);
-    setDriver1(null);
+    // DO NOT setDriver1(null) here if it's an update, to keep layout stable.
+    // Child components will use isLoadingDriver1 prop.
     const detailedDriver = await fetchDriverDetails(selectedDriverBaseInfo.id, selectedDriverBaseInfo);
     setDriver1(detailedDriver);
     setIsLoadingDriver1(false);
   }, [fetchDriverDetails]);
 
   const handleSetDriver2 = useCallback(async (selectedDriverBaseInfo) => {
-    if (!selectedDriverBaseInfo) {
+    if (!selectedDriverBaseInfo) { // If unselecting
       setDriver2(null);
       return;
     }
     setIsLoadingDriver2(true);
-    setDriver2(null);
+    // DO NOT setDriver2(null) here if it's an update.
     const detailedDriver = await fetchDriverDetails(selectedDriverBaseInfo.id, selectedDriverBaseInfo);
     setDriver2(detailedDriver);
     setIsLoadingDriver2(false);
@@ -286,65 +286,72 @@ function App() {
             <button
               onClick={() => setStatsDisplayMode('current')}
               className={statsDisplayMode === 'current' ? 'active-stats-type' : ''}
+              disabled={isLoadingDriver1 || isLoadingDriver2} // Disable while loading to prevent state issues
             >
               Current Season Stats
             </button>
             <button
               onClick={() => setStatsDisplayMode('overall')}
               className={statsDisplayMode === 'overall' ? 'active-stats-type' : ''}
+              disabled={isLoadingDriver1 || isLoadingDriver2} // Disable while loading
             >
               Overall Career Stats
             </button>
           </div>
         )}
 
-        {(isLoadingDriver1 || isLoadingDriver2) &&
-          ((driver1 === null && isLoadingDriver1) || (driver2 === null && isLoadingDriver2)) && (
-            <div className="loading-driver-details">
-              <div className="loader-small" style={{ width: '40px', height: '40px', margin: '20px auto' }}></div>
-              <p>Loading driver details...</p>
-            </div>
-          )}
+        {/* Removed the generic loading message from here */}
 
-        {driver1 && driver2 && !isLoadingDriver1 && !isLoadingDriver2 && (
-   <>
-   <section className="section-padding" id="comparison">
-     <StatsComparison
-       driver1={driver1}
-       driver2={driver2}
-       statsType={statsDisplayMode}
-     />
-   </section>
-   <section className="section-padding" id="analysis">
-     <AIAnalysis
-       driver1={driver1}
-       driver2={driver2}
-       statsType={statsDisplayMode}
-     />
-   </section>
- </>
-)}
+        {/* Always render StatsComparison and AIAnalysis if drivers are selected,
+            they will handle their internal loading state */}
+        {driver1 && driver2 && (
+          <>
+            <section className="section-padding" id="comparison">
+              <StatsComparison
+                driver1={driver1}
+                driver2={driver2}
+                statsType={statsDisplayMode}
+                isLoadingDriver1={isLoadingDriver1}
+                isLoadingDriver2={isLoadingDriver2}
+              />
+            </section>
+            <section className="section-padding" id="analysis">
+              <AIAnalysis
+                driver1={driver1}
+                driver2={driver2}
+                statsType={statsDisplayMode}
+                isLoadingDriver1={isLoadingDriver1}
+                isLoadingDriver2={isLoadingDriver2}
+              />
+            </section>
+          </>
+        )}
 
-{availableDrivers.length === 0 && !isLoadingApp && !appError && (
- <div className="welcome-message">
-   <h2>No Drivers Found</h2>
-   <p>Could not retrieve a list of drivers from the API for year {latestApiYear} or historical records. The API might be temporarily unavailable or data is missing. Please try refreshing later.</p>
- </div>
-)}
+        {/* Welcome/placeholder messages */}
+        {availableDrivers.length === 0 && !isLoadingApp && !appError && (
+          <div className="welcome-message">
+            <h2>No Drivers Found</h2>
+            <p>Could not retrieve a list of drivers from the API for year {latestApiYear} or historical records. The API might be temporarily unavailable or data is missing. Please try refreshing later.</p>
+          </div>
+        )}
 
-{availableDrivers.length > 0 && !(driver1 && driver2) && !isLoadingDriver1 && !isLoadingDriver2 && (
- <div className="welcome-message">
-   <h2>Welcome to the F1 Performance Analyzer</h2>
-   <p>Select two drivers above to start the comparison. You can toggle between Current Season and Overall Career stats once drivers are selected.</p>
-   <p style={{ fontSize: '0.9em', color: '#999' }}>Data for the driver list is primarily from the {latestApiYear} F1 season. 'Current Season' stats reflect the latest official standings. Podium and Pole data for current season are often placeholders (0) in summary APIs; overall career stats are more comprehensive for these metrics.</p>
- </div>
-)}
-</main>
-<footer style={{ textAlign: 'center', padding: '20px', marginTop: '40px', color: '#777', borderTop: '1px solid #333' }}>
- F1 Data Analyzer © {new Date().getFullYear()} | Data from <a href="http://ergast.com/mrd/" target="_blank" rel="noopener noreferrer" style={{ color: '#999' }}>Ergast API</a>
-</footer>
-</div>
-);
+        {/* Show welcome message if drivers are available but none are selected,
+            AND no driver details are currently being loaded.
+            If isLoadingDriver1 or isLoadingDriver2 is true, it means a selection has been made or is in progress.
+         */}
+        {availableDrivers.length > 0 && !(driver1 && driver2) && !isLoadingDriver1 && !isLoadingDriver2 && (
+          <div className="welcome-message">
+            <h2>Welcome to the F1 Performance Analyzer</h2>
+            <p>Select two drivers above to start the comparison. You can toggle between Current Season and Overall Career stats once drivers are selected.</p>
+            <p style={{ fontSize: '0.9em', color: '#999' }}>Data for the driver list is primarily from the {latestApiYear} F1 season. 'Current Season' stats reflect the latest official standings. Podium and Pole data for current season are often placeholders (0) in summary APIs; overall career stats are more comprehensive for these metrics.</p>
+          </div>
+        )}
+      </main>
+      <footer style={{ textAlign: 'center', padding: '20px', marginTop: '40px', color: '#777', borderTop: '1px solid #333' }}>
+        F1 Data Analyzer © {new Date().getFullYear()} | Data from <a href="http://ergast.com/mrd/" target="_blank" rel="noopener noreferrer" style={{ color: '#999' }}>Ergast API</a>
+      </footer>
+    </div>
+  );
 }
 
 export default App;

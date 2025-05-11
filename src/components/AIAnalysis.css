@@ -1,31 +1,73 @@
-/* f1-performance-analyzer/src/components/AIAnalysis.css */
+/* src/components/AIAnalysis.css (Old Style) */
 .ai-analysis {
-  text-align: left;
-  padding: 30px 20px;
-  background-color: #1e1e1e;
+  background-color: #1e1e1e; /* Dark background */
+  padding: 30px 25px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-  margin-bottom: 40px;
-  color: #e0e0e0;
+  margin: 40px 0; /* Consistent margin */
+  border-left: 5px solid #d32f2f; /* F1 Red accent border */
+  /* CRITICAL: min-height for stability */
+  min-height: 300px; /* Adjust based on typical analysis length */
+  display: flex; /* For centering loader/error message */
+  flex-direction: column;
 }
 
 .ai-analysis h2 {
   color: #ffffff;
-  margin-bottom: 20px;
   font-size: 1.6rem;
+  margin-bottom: 20px;
 }
 
 .ai-analysis p {
-  line-height: 1.6;
-  margin-bottom: 12px;
+  color: #e0e0e0;
   font-size: 1rem;
+  line-height: 1.7; /* Old line height */
+  margin-bottom: 10px; /* Spacing between paragraphs */
 }
-
 .ai-analysis p:last-child {
   margin-bottom: 0;
 }
 
-.ai-analysis .placeholder {
-  color: #aaa;
-  font-style: italic;
+
+.ai-analysis h2.placeholder { /* From old style */
+    color: #aaa;
+    font-style: italic;
+    font-size: 1.4rem;
 }
+
+/* Old spinner style, can be replaced by .loader-small if preferred */
+.loading-spinner {
+  margin: 20px auto;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #d32f2f;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite; /* Ensure spin is defined */
+}
+
+/* Loader and Error message styles (Adapted from new code for consistency) */
+.analysis-loader-container { /* A container for the loader & text */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #ccc;
+  flex-grow: 1; /* Take available space within .ai-analysis */
+  padding: 20px;
+}
+.analysis-loader-container .loader-small { /* Using .loader-small from global */
+  margin-bottom: 15px;
+}
+
+.ai-analysis .error-text { /* For error messages */
+    color: #ffaeae;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+    margin: auto; /* Center it */
+}
+
+/* Ensure @keyframes spin is defined, typically in global index.css */
+/* @keyframes spin { to { transform: rotate(360deg); } } */

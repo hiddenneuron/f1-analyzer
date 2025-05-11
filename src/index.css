@@ -1,3 +1,4 @@
+/* src/index.css (from your "new" codebase, assumed to be desired global style) */
 /* Global Dark Theme */
 * {
   margin: 0;
@@ -132,10 +133,33 @@ button:active:not(:disabled) {
 }
 
 .loader-small {
-  border: 3px solid #555;
-  border-top: 3px solid #d32f2f;
+  border: 3px solid #555; /* Darker part of spinner */
+  border-top: 3px solid #d32f2f; /* F1 Red, animated part */
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  /* width and height are often set inline or via more specific class */
+  /* e.g., style={{ width: '20px', height: '20px' }} */
   animation: spin 0.8s linear infinite;
+}
+
+/* App-level inline error for non-critical issues */
+.app-level-error-inline {
+    text-align: center;
+    color: #ffcc00; /* Warning yellow */
+    background-color: rgba(50,50,0,0.3);
+    padding: 10px;
+    border-radius: 5px;
+    margin: 0 20px 20px 20px;
+    border: 1px solid #cc9900;
+}
+
+.driver-selection-section,
+.stats-comparison-section,
+.ai-analysis-section {
+  /* No specific min-height here by default, as the child components
+     (DriverSelection, StatsComparison, AIAnalysis) are responsible for their
+     own stable height via their CSS (e.g., .driver-card min-height).
+     This section-padding class already gives them top/bottom padding. */
+  /* If sections themselves were collapsing because their children were *completely*
+     removed from the DOM, then a min-height here would be useful.
+     But our App.js now tries to keep StatsComparison and AIAnalysis mounted. */
 }
