@@ -1,4 +1,4 @@
-/* f1-performance-analyzer/src/components/DriverSelection.css (Old Style) */
+/* f1-performance-analyzer/src/components/DriverSelection.css */
 .driver-selection {
   text-align: center;
   margin-bottom: 40px;
@@ -6,6 +6,11 @@
   background-color: #1e1e1e; /* Dark background for section */
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  transition: box-shadow 0.3s ease;
+}
+
+.driver-selection:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
 }
 
 .driver-selection h2 {
@@ -31,13 +36,27 @@ select {
   color: #e0e0e0; /* Light text */
   cursor: pointer;
   min-width: 220px; /* Ensure dropdowns have a decent width */
-  transition: border-color 0.3s ease, background-color 0.3s ease;
+  transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d32f2f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  padding-right: 40px;
 }
 
 select:focus {
   outline: none;
   border-color: #ffffff; /* White border on focus */
   background-color: #333333;
+  box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.3);
+}
+
+select:hover:not(:disabled) {
+  transform: translateY(-2px);
+  border-color: #e04444;
 }
 
 select option {
@@ -46,48 +65,75 @@ select option {
   padding: 10px;
 }
 
-/* === New additions for loader from new codebase, adapted for old structure === */
+select:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  border-color: #555;
+}
+
+/* Dropdown wrapper for loader positioning */
 .dropdown-wrapper {
-  position: relative; /* For loader positioning */
+  position: relative;
   display: flex;
   align-items: center;
-  /* Space for the loader if it's positioned absolutely */
-  /* You might not need padding-right if loader is small and to the side */
 }
 
 .dropdown-wrapper .loader-small {
-  /* If you want the loader next to the select, not absolutely positioned */
-  margin-left: 10px; 
-  /* Or use absolute positioning as in the "new" solution if preferred:
   position: absolute;
-  right: -25px; 
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  */
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
 }
 
-.no-drivers-message { /* From new code, useful */
+.no-drivers-message {
   color: #ffaeae;
   font-style: italic;
   margin-top: 15px;
+  animation: fadeIn 0.5s ease-in;
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-@media (max-width: 600px) { /* From old DriverSelection.css */
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .driver-selection {
+    padding: 25px 15px;
+  }
+  
+  .dropdown-container {
+    gap: 20px;
+  }
+  
+  select {
+    min-width: 100%;
+    width: 100%;
+  }
+  
+  .dropdown-wrapper {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 480px) {
+  .driver-selection h2 {
+    font-size: 1.4rem;
+  }
+  
   .dropdown-container {
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
   }
-
+  
   select {
-    width: 90%;
-    max-width: 350px;
-  }
-  /* Ensure dropdown-wrapper also adapts if used */
-  .dropdown-wrapper {
-    width: 90%;
-    max-width: 350px; /* Or adjust if it includes more than just the select */
-    justify-content: center;
+    font-size: 0.95rem;
+    padding: 10px 16px;
   }
 }

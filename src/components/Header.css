@@ -1,12 +1,18 @@
 /* f1-performance-analyzer/src/components/Header.css */
 .header {
-  background-color: #1f1f1f; /* Slightly lighter dark for header */
+  background-color: rgba(31, 31, 31, 0.95);
   padding: 15px 0;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   position: sticky;
   top: 0;
   z-index: 1000;
   width: 100%;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header.scrolled {
+  background-color: rgba(25, 25, 25, 0.98);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
 }
 
 .header-container {
@@ -16,31 +22,38 @@
   max-width: 1300px;
   margin: 0 auto;
   padding: 0 20px;
+  position: relative;
 }
 
 .header h1 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: #ffffff;
   margin: 0;
   font-weight: 700;
+  z-index: 1001; /* Keep above the overlay */
 }
 
 .header h1 span {
   color: #d32f2f; /* F1 Red accent */
 }
 
-nav ul {
+/* Desktop Navigation */
+.nav-menu {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.nav-menu ul {
   display: flex;
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-nav ul li {
+.nav-menu ul li {
   margin-left: 35px;
 }
 
-nav ul li a {
+.nav-menu ul li a {
   color: #e0e0e0;
   text-decoration: none;
   font-size: 1rem;
@@ -48,9 +61,10 @@ nav ul li a {
   transition: color 0.3s ease;
   position: relative;
   padding-bottom: 5px;
+  display: block;
 }
 
-nav ul li a::after {
+.nav-menu ul li a::after {
   content: '';
   position: absolute;
   width: 0;
@@ -61,41 +75,123 @@ nav ul li a::after {
   transition: width 0.3s ease;
 }
 
-nav ul li a:hover {
+.nav-menu ul li a:hover {
   color: #ffffff;
 }
 
-nav ul li a:hover::after {
+.nav-menu ul li a:hover::after {
   width: 100%;
 }
 
-/* Responsive adjustments if needed */
+/* Mobile menu button */
+.mobile-menu-button {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  padding: 8px;
+  cursor: pointer;
+  z-index: 1001; /* Ensure it stays above the overlay */
+  box-shadow: none;
+}
+
+.mobile-menu-button:hover {
+  background-color: transparent;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Mobile menu overlay */
+.mobile-menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 999;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
   .header-container {
+    padding: 0 15px;
+  }
+  
+  .header h1 {
+    font-size: 1.4rem;
+  }
+  
+  /* Show mobile menu button */
+  .mobile-menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Mobile navigation menu */
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 70%;
+    max-width: 300px;
+    background-color: #1a1a1a;
+    z-index: 1000;
+    transform: translateX(100%);
+    opacity: 0;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+    padding-top: 70px;
+  }
+  
+  .nav-menu.open {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  .nav-menu ul {
     flex-direction: column;
-    align-items: flex-start;
+    padding: 0 20px;
   }
-
-  nav ul {
-    margin-top: 15px;
+  
+  .nav-menu ul li {
+    margin: 0;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
-
-  nav ul li {
-    margin-left: 0;
-    margin-right: 25px;
+  
+  .nav-menu ul li:last-child {
+    border-bottom: none;
+  }
+  
+  .nav-menu ul li a {
+    font-size: 1.1rem;
+    padding: 8px 0;
+    display: block;
+    width: 100%;
+  }
+  
+  /* Show overlay when menu is open */
+  .mobile-menu-overlay {
+    display: block;
   }
 }
 
 @media (max-width: 480px) {
   .header h1 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
-
-  nav ul li a {
-    font-size: 0.9rem;
-  }
-
-  nav ul li {
-    margin-right: 15px;
+  
+  .nav-menu {
+    width: 80%;
   }
 }

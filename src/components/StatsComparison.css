@@ -1,4 +1,4 @@
-/* src/components/StatsComparison.css (Old Style) */
+/* src/components/StatsComparison.css */
 .stats-comparison {
   text-align: center;
   padding: 40px 20px;
@@ -7,6 +7,12 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
   margin-bottom: 40px;
   position: relative; /* For loader overlays */
+  transition: box-shadow 0.3s ease;
+  overflow: hidden; /* Contain any overflowing content */
+}
+
+.stats-comparison:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
 }
 
 .stats-comparison h2 {
@@ -14,17 +20,22 @@
   margin-bottom: 30px;
   font-size: 1.6rem;
 }
-/* Old placeholder style. Renamed to avoid conflict if new one exists in App.js */
+
 .stats-comparison h2.placeholder-message-old-stats {
-    color: #aaa;
-    font-style: italic;
+  color: #aaa;
+  font-style: italic;
+  animation: fadeIn 0.5s ease;
 }
 
 .view-toggle {
   margin-bottom: 30px;
 }
 
-/* Driver Cards Container (Old Style) */
+.view-toggle button {
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Driver Cards Container */
 .driver-cards {
   display: flex;
   justify-content: center;
@@ -33,19 +44,18 @@
   flex-wrap: wrap;
   align-items: flex-start; /* Align cards to the top */
   /* CRITICAL: min-height to prevent collapse during loading/view switch */
-  /* Card height ~600px, Graph height ~460px. */
   min-height: 610px; 
 }
 
-/* Individual Driver Card (Old Style) */
+/* Individual Driver Card */
 .driver-card {
   background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
   border-radius: 15px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
-  padding: 30px; /* Old: 30px */
-  width: 300px;  /* Old: 300px */
+  padding: 30px;
+  width: 300px;
   /* CRITICAL: min-height for individual card stability */
-  min-height: 580px; /* Adjust based on content, must be stable for loader */
+  min-height: 580px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -68,6 +78,12 @@
   border: 4px solid #d32f2f; /* F1 Red border */
   box-shadow: 0 0 15px rgba(211, 47, 47, 0.5);
   background-color: #333; /* Fallback for image */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.driver-card:hover .driver-image {
+  box-shadow: 0 0 20px rgba(211, 47, 47, 0.7);
+  transform: scale(1.05);
 }
 
 .driver-card h3 {
@@ -93,6 +109,12 @@
   display: flex; /* For aligning strong and span */
   justify-content: space-between;
   align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.stats p:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
 }
 
 .stats p:last-child {
@@ -104,45 +126,42 @@
   margin-right: 8px;
   flex-shrink: 0;
 }
+
 .stats span { /* For the stat value */
   text-align: right;
   color: #bdbdbd;
+  font-weight: 500;
 }
 
-
-/* Graph Container Styling (Old Style) */
-.stats-graph { /* This was a direct child within .driver-card.graph-card */
+/* Graph Container Styling */
+.stats-graph {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%; /* Fill the .graph-card */
-  /* margin-top: 10px; (Old style) */
+  height: 100%;
+  animation: fadeIn 0.5s ease;
 }
 
-.graph-card { /* This was the .driver-card modified for graph view */
-  /* Inherits .driver-card styles like width, padding etc. if used as: class="driver-card graph-card" */
-  max-width: 700px; /* Max width for the graph card */
-  min-height: 460px; /* Min height for graph card content (chart + padding) */
-  /* padding: 30px; (From .driver-card) */
-  /* background, box-shadow, border-radius from .driver-card */
+.graph-card {
+  max-width: 700px;
+  min-height: 460px;
   display: flex; 
   flex-direction: column; 
   align-items: center; 
   justify-content: center; 
-  /* width: 100%; When it's the only item in .driver-cards */
 }
 
 .graph-card .chart-container {
   position: relative;
-  height: 350px; /* Fixed height for chart area */
-  width: 95%; /* Responsive width */
+  height: 350px;
+  width: 95%;
   margin: 0 auto;
 }
 
-/* Loader and Error Overlays (Adapted from New Code) */
-.card-loader-overlay, /* For individual driver cards */
-.graph-card-loader-overlay, /* For the graph card specifically */
+/* Loader and Error Overlays */
+.card-loader-overlay,
+.graph-card-loader-overlay,
 .card-error-overlay {
   position: absolute;
   top: 0;
@@ -154,11 +173,12 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(30, 30, 30, 0.85);
-  border-radius: 15px; /* Match .driver-card or .graph-card */
+  border-radius: 15px;
   z-index: 10;
   text-align: center;
   padding: 20px;
   box-sizing: border-box;
+  animation: fadeIn 0.3s ease;
 }
 
 .card-loader-overlay p,
@@ -168,16 +188,18 @@
   font-size: 1.1rem;
   color: #e0e0e0;
 }
-.card-error-overlay p { color: #ffaeae; }
 
+.card-error-overlay p { 
+  color: #ffaeae; 
+}
 
-/* API Note (From New Code, useful) */
+/* API Note */
 .api-note-container {
-  min-height: 60px; /* Adjusted, was 80px */
+  min-height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 15px 15px 15px; /* Some bottom padding */
+  padding: 10px 15px 15px 15px;
   width: 100%;
 }
 
@@ -189,4 +211,78 @@
   max-width: 700px;
   margin: 0;
   line-height: 1.4;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .stats-comparison {
+    padding: 30px 15px;
+  }
+  
+  .driver-cards {
+    gap: 20px;
+    min-height: auto; /* Remove fixed height on mobile */
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .driver-card {
+    width: 100%;
+    max-width: 340px;
+    min-height: auto; /* Allow cards to size to content */
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .graph-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 15px;
+  }
+  
+  .graph-card .chart-container {
+    height: 300px;
+  }
+  
+  .driver-image {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .driver-card h3 {
+    font-size: 1.3rem;
+  }
+  
+  .stats {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-comparison h2 {
+    font-size: 1.4rem;
+  }
+  
+  .driver-image {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .driver-card h3 {
+    font-size: 1.2rem;
+  }
+  
+  .graph-card .chart-container {
+    height: 250px;
+  }
+  
+  .stats strong, .stats span {
+    font-size: 0.9rem;
+  }
 }
